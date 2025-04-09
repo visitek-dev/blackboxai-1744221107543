@@ -1,0 +1,137 @@
+  [1m[35m (40.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (1.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-04-09 17:25:37.358581', '2025-04-09 17:25:37.358663') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateProducts (20250409171507)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (38.7ms)[0m  [1m[35mCREATE TABLE "products" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "size" varchar, "color" varchar, "brand" varchar, "price" decimal, "quantity" integer, "category_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_fb915499a4"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_products_on_category_id" ON "products" ("category_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250409171507') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateCategories (20250409171608)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "categories" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250409171608') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Men's Shoes"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.1ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Men's Shoes"], ["description", "Formal and casual shoes for men"], ["created_at", "2025-04-09 17:32:07.353669"], ["updated_at", "2025-04-09 17:32:07.353669"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Women's Shoes"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.1ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Women's Shoes"], ["description", "Elegant and comfortable shoes for women"], ["created_at", "2025-04-09 17:32:07.359337"], ["updated_at", "2025-04-09 17:32:07.359337"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Kids' Shoes"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.1ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Kids' Shoes"], ["description", "Durable and fun shoes for children"], ["created_at", "2025-04-09 17:32:07.363748"], ["updated_at", "2025-04-09 17:32:07.363748"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Create (1.5ms)[0m  [1m[32mINSERT INTO "products" ("name", "size", "color", "brand", "price", "quantity", "category_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Classic Oxford"], ["size", "10"], ["color", "Black"], ["brand", "Allen Edmonds"], ["price", 295.99], ["quantity", 15], ["category_id", 1], ["created_at", "2025-04-09 17:32:07.394927"], ["updated_at", "2025-04-09 17:32:07.394927"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddProductsCountToCategories (20250409173230)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (6.7ms)[0m  [1m[35mALTER TABLE "categories" ADD "products_count" integer DEFAULT 0 NOT NULL[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250409173230') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mProduct Delete All (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mCategory Delete All (0.1ms)[0m  [1m[31mDELETE FROM "categories"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Men's Shoes"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.1ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at", "products_count") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Men's Shoes"], ["description", "Formal and casual shoes for men"], ["created_at", "2025-04-09 17:34:32.730693"], ["updated_at", "2025-04-09 17:34:32.730693"], ["products_count", 0]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Women's Shoes"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.1ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at", "products_count") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Women's Shoes"], ["description", "Elegant and comfortable shoes for women"], ["created_at", "2025-04-09 17:34:32.736098"], ["updated_at", "2025-04-09 17:34:32.736098"], ["products_count", 0]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Kids' Shoes"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.1ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at", "products_count") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Kids' Shoes"], ["description", "Durable and fun shoes for children"], ["created_at", "2025-04-09 17:34:32.740642"], ["updated_at", "2025-04-09 17:34:32.740642"], ["products_count", 0]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Create (1.3ms)[0m  [1m[32mINSERT INTO "products" ("name", "size", "color", "brand", "price", "quantity", "category_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Classic Oxford"], ["size", "10"], ["color", "Black"], ["brand", "Allen Edmonds"], ["price", 295.99], ["quantity", 15], ["category_id", 4], ["created_at", "2025-04-09 17:34:32.752185"], ["updated_at", "2025-04-09 17:34:32.752185"]]
+  [1m[36mCategory Update All (0.1ms)[0m  [1m[33mUPDATE "categories" SET "products_count" = COALESCE("products_count", 0) + ? WHERE "categories"."id" = ?[0m  [["products_count", 1], ["id", 4]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Create (0.9ms)[0m  [1m[32mINSERT INTO "products" ("name", "size", "color", "brand", "price", "quantity", "category_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Running Pro"], ["size", "9"], ["color", "Blue/White"], ["brand", "Nike"], ["price", 129.99], ["quantity", 22], ["category_id", 4], ["created_at", "2025-04-09 17:34:32.758421"], ["updated_at", "2025-04-09 17:34:32.758421"]]
+  [1m[36mCategory Update All (0.1ms)[0m  [1m[33mUPDATE "categories" SET "products_count" = COALESCE("products_count", 0) + ? WHERE "categories"."id" = ?[0m  [["products_count", 1], ["id", 4]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Create (1.9ms)[0m  [1m[32mINSERT INTO "products" ("name", "size", "color", "brand", "price", "quantity", "category_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Ballet Flat"], ["size", "7"], ["color", "Nude"], ["brand", "Sam Edelman"], ["price", 89.99], ["quantity", 18], ["category_id", 5], ["created_at", "2025-04-09 17:34:32.763453"], ["updated_at", "2025-04-09 17:34:32.763453"]]
+  [1m[36mCategory Update All (0.1ms)[0m  [1m[33mUPDATE "categories" SET "products_count" = COALESCE("products_count", 0) + ? WHERE "categories"."id" = ?[0m  [["products_count", 1], ["id", 5]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Create (1.0ms)[0m  [1m[32mINSERT INTO "products" ("name", "size", "color", "brand", "price", "quantity", "category_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Light-Up Sneakers"], ["size", "3"], ["color", "Pink"], ["brand", "Skechers"], ["price", 49.99], ["quantity", 10], ["category_id", 6], ["created_at", "2025-04-09 17:34:32.770365"], ["updated_at", "2025-04-09 17:34:32.770365"]]
+  [1m[36mCategory Update All (0.1ms)[0m  [1m[33mUPDATE "categories" SET "products_count" = COALESCE("products_count", 0) + ? WHERE "categories"."id" = ?[0m  [["products_count", 1], ["id", 6]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "categories"[0m
+  [1m[36mProduct Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20250409173530)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (5.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password_digest" varchar, "admin" boolean, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250409173530') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mUser Delete All (0.2ms)[0m  [1m[31mDELETE FROM "users"[0m
+  [1m[36mProduct Delete All (0.1ms)[0m  [1m[31mDELETE FROM "products"[0m
+  [1m[36mCategory Delete All (0.1ms)[0m  [1m[31mDELETE FROM "categories"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin@shoestore.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "admin", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["email", "admin@shoestore.com"], ["password_digest", "[FILTERED]"], ["admin", 1], ["created_at", "2025-04-09 17:38:32.359297"], ["updated_at", "2025-04-09 17:38:32.359297"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Men's Shoes"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.1ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at", "products_count") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Men's Shoes"], ["description", "Formal and casual shoes for men"], ["created_at", "2025-04-09 17:38:32.369381"], ["updated_at", "2025-04-09 17:38:32.369381"], ["products_count", 0]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Women's Shoes"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.1ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at", "products_count") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Women's Shoes"], ["description", "Elegant and comfortable shoes for women"], ["created_at", "2025-04-09 17:38:32.374776"], ["updated_at", "2025-04-09 17:38:32.374776"], ["products_count", 0]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Kids' Shoes"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.1ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at", "products_count") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Kids' Shoes"], ["description", "Durable and fun shoes for children"], ["created_at", "2025-04-09 17:38:32.379855"], ["updated_at", "2025-04-09 17:38:32.379855"], ["products_count", 0]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Create (2.2ms)[0m  [1m[32mINSERT INTO "products" ("name", "size", "color", "brand", "price", "quantity", "category_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Classic Oxford"], ["size", "10"], ["color", "Black"], ["brand", "Allen Edmonds"], ["price", 295.99], ["quantity", 15], ["category_id", 7], ["created_at", "2025-04-09 17:38:32.392693"], ["updated_at", "2025-04-09 17:38:32.392693"]]
+  [1m[36mCategory Update All (0.1ms)[0m  [1m[33mUPDATE "categories" SET "products_count" = COALESCE("products_count", 0) + ? WHERE "categories"."id" = ?[0m  [["products_count", 1], ["id", 7]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Create (1.3ms)[0m  [1m[32mINSERT INTO "products" ("name", "size", "color", "brand", "price", "quantity", "category_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Running Pro"], ["size", "9"], ["color", "Blue/White"], ["brand", "Nike"], ["price", 129.99], ["quantity", 22], ["category_id", 7], ["created_at", "2025-04-09 17:38:32.400537"], ["updated_at", "2025-04-09 17:38:32.400537"]]
+  [1m[36mCategory Update All (0.1ms)[0m  [1m[33mUPDATE "categories" SET "products_count" = COALESCE("products_count", 0) + ? WHERE "categories"."id" = ?[0m  [["products_count", 1], ["id", 7]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Create (1.0ms)[0m  [1m[32mINSERT INTO "products" ("name", "size", "color", "brand", "price", "quantity", "category_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Ballet Flat"], ["size", "7"], ["color", "Nude"], ["brand", "Sam Edelman"], ["price", 89.99], ["quantity", 18], ["category_id", 8], ["created_at", "2025-04-09 17:38:32.453890"], ["updated_at", "2025-04-09 17:38:32.453890"]]
+  [1m[36mCategory Update All (0.1ms)[0m  [1m[33mUPDATE "categories" SET "products_count" = COALESCE("products_count", 0) + ? WHERE "categories"."id" = ?[0m  [["products_count", 1], ["id", 8]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Create (1.0ms)[0m  [1m[32mINSERT INTO "products" ("name", "size", "color", "brand", "price", "quantity", "category_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Light-Up Sneakers"], ["size", "3"], ["color", "Pink"], ["brand", "Skechers"], ["price", 49.99], ["quantity", 10], ["category_id", 9], ["created_at", "2025-04-09 17:38:32.458912"], ["updated_at", "2025-04-09 17:38:32.458912"]]
+  [1m[36mCategory Update All (0.1ms)[0m  [1m[33mUPDATE "categories" SET "products_count" = COALESCE("products_count", 0) + ? WHERE "categories"."id" = ?[0m  [["products_count", 1], ["id", 9]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "categories"[0m
+  [1m[36mProduct Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 28s6q5-8000.csb.app
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 28s6q5-8000.csb.app
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 28s6q5-8000.csb.app
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 28s6q5-8000.csb.app
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 28s6q5-8000.csb.app
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 28s6q5-8000.csb.app
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 28s6q5-8000.csb.app
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 28s6q5-8000.csb.app
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 28s6q5-8000.csb.app
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 28s6q5-8000.csb.app
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 28s6q5-8000.csb.app
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 28s6q5-8000.csb.app
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 28s6q5-8000.csb.app
